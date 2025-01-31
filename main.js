@@ -1,10 +1,14 @@
+import express from "express";
+import { createServer } from "http";
+import { Server } from "socket.io";
+
 const app = express();
 const server = createServer(app);
 
-// Add CORS configuration for Socket.IO
+// Allow any origin for CORS
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000", // Allow your React app's origin
+    origin: "*", // Allow all origins
     methods: ["GET", "POST"],
   },
 });
@@ -27,5 +31,5 @@ io.on("connection", (socket) => {
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`); // Fixed template string
+  console.log(`Server is running on port ${PORT}`);
 });
